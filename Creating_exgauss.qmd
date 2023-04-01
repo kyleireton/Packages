@@ -1,0 +1,98 @@
+---
+title: "Creating exgauss package"
+author: "Kyle Ireton"
+format: html
+editor: visual
+---
+
+## Setup
+
+First, create a new R package directory using the command **`Rcpp.package.skeleton("exgaussian")`** in R console.
+
+Next, modify the **`R/exgaussian.R`** file to add an R wrapper function that calls the C++ implementation:
+
+```{r}
+
+#' Compute the ex-Gaussian distribution
+#'
+#' @param x a vector of numeric values
+#' @param mu the mean of the normal distribution
+#' @param sigma the standard deviation of the normal distribution
+#' @param tau the mean of the exponential distribution
+#' @return a numeric vector of probability density values
+#' @export
+ 
+
+exgaussian <- function(x, mu, sigma, tau) {
+  if (!is.numeric(x) || !is.numeric(mu) || !is.numeric(sigma) || !is.numeric(tau)) {
+    stop("All arguments must be numeric")
+  }
+  if (length(mu) != 1 || length(sigma) != 1 || length(tau) != 1) {
+    stop("mu, sigma, and tau must be single numeric values")
+  }
+  .Call("exgaussian_cpp", x, mu, sigma, tau)
+}
+
+```
+
+Next, create the C++ implementation in the **`src/exgaussian.cpp`** file:
+
+```{cpp}
+
+#include <Rcpp.h>
+using namespace Rcpp;
+
+// Define the ex-Gaussian density function
+double d_exgaussian(double x, double mu, double sigma, double tau) {
+  double z = (x - mu) / sigma;
+  double lambda = 1.0 / tau;
+  double phi = R::dnorm(z, 0.0, 1.0, false);
+  double Phi = R::pnorm(lambda * z, 0.0, 1.0, true, false);
+  double c = lambda / 2.0 * exp(lambda * (mu + sigma * sigma / (2.0 * tau)) - lambda * x);
+  return c * Phi * exp(phi);
+}
+
+// Define the Rcpp wrapper function
+// [[Rcpp::export]]
+NumericVector exgaussian_cpp(NumericVector x, double mu, double sigma, double tau) {
+  int n = x.length();
+  NumericVector y(n);
+  for (int i = 0; i < n; i++) {
+    y[i] = d_exgaussian(x[i], mu, sigma, tau);
+  }
+  return y;
+}
+
+```
+
+Finally, modify the **`NAMESPACE`** file to export the **`exgaussian`** function:
+
+```{r}
+export(exgaussian)
+useDynLib(exgaussian)
+importFrom(Rcpp, evalCpp)
+
+```
+
+Now you can build and install the package using the following commands
+
+```{r}
+
+library(devtools)
+build("exgaussian")
+install("exgaussian")
+
+
+```
+
+You can then use the **`exgaussian`** function like any other R function, for example:
+
+```{r}
+
+library(exgaussian)
+x <- seq(-5, 5, by = 0.1)
+y <- exgaussian(x, mu = 0, sigma = 1, tau = 0.5)
+plot(x, y, type = "l")
+
+
+```
