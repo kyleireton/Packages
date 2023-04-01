@@ -1,12 +1,11 @@
 Package: exgaussian
 Type: Package
-Title: What the Package Does in One 'Title Case' Line
+Title: Simple package for exgaussian distribution
 Version: 1.0
 Date: 2023-04-01
-Author: Your Name
-Maintainer: Your Name <your@email.com>
-Description: One paragraph description of what the package
-      does as one or more full sentences.
+Author: Kyle Ireton
+Maintainer: kyle.ireton@gmail.com
+Description: A simple package to share the exgaussian distribution function without other dependencies for ease of use
 License: GPL (>= 2)
 Imports: Rcpp (>= 1.0.10)
 LinkingTo: Rcpp
