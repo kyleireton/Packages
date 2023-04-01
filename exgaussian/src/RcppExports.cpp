@@ -22,7 +22,7 @@ END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_exgaussian_rcpp", (DL_FUNC) &_exgaussian_rcpp, 0},
+    {"_exgaussian_rcpp", (DL_FUNC) &_exgaussian_rcpp_hello_world, 0},
     {NULL, NULL, 0}
 };
 
