@@ -1,0 +1,4 @@
+export(exgaussian)
+useDynLib(exgaussian)
+importFrom(Rcpp, evalCpp)
+exportPattern("^[[:alpha:]]+")
