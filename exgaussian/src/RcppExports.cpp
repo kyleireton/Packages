@@ -2,7 +2,7 @@
 using namespace Rcpp;
 
 // Define the ex-Gaussian density function
-double d_exgaussian(double x, double mu, double sigma, double tau) {
+double d_exgaussian(NumericVector x, NumericVector mu, NumericVector sigma, NumericVector tau) {
   double z = (x - mu) / sigma;
   double lambda = 1.0 / tau;
   double phi = R::dnorm(z, 0.0, 1.0, false);
@@ -13,7 +13,7 @@ double d_exgaussian(double x, double mu, double sigma, double tau) {
 
 // Define the Rcpp wrapper function
 // [[Rcpp::export]]
-NumericVector exgaussian_cpp(double x, double mu, double sigma, double tau) {
+NumericVector exgaussian_cpp(NumericVector x, NumericVectore mu, NumericVector sigma, NumericVector tau) {
   int n = x.length();
   NumericVector y(n);
   for (int i = 0; i < n; i++) {
