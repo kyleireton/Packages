@@ -25,12 +25,12 @@ BEGIN_RCPP
 END_RCPP
 }
 // exgaussian_cpp
-NumericVector exgaussian_cpp(NumericVector x, double mu, double sigma, double tau);
+NumericVector exgaussian_cpp(double x, double mu, double sigma, double tau);
 RcppExport SEXP _exgaussian_exgaussian_cpp(SEXP xSEXP, SEXP muSEXP, SEXP sigmaSEXP, SEXP tauSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< NumericVector >::type x(xSEXP);
+    Rcpp::traits::input_parameter< double >::type x(xSEXP);
     Rcpp::traits::input_parameter< double >::type mu(muSEXP);
     Rcpp::traits::input_parameter< double >::type sigma(sigmaSEXP);
     Rcpp::traits::input_parameter< double >::type tau(tauSEXP);
