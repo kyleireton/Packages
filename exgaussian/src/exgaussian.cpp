@@ -1,5 +1,6 @@
 
 #include <Rcpp.h>
+#include "exgaussian.h"
 using namespace Rcpp;
 
 // [[Rcpp::export]]
