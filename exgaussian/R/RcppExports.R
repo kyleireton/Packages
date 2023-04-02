@@ -2,10 +2,10 @@
 # Generator token: 10BE3573-1514-4C36-9D1C-5A225CD40393
 
 d_exgaussian <- function(x, mu, sigma, tau) {
-    .Call('_exgaussian_d_exgaussian', PACKAGE = 'exgaussian', x, mu, sigma, tau)
+    .Call('_d_exgaussian', PACKAGE = 'exgaussian', x, mu, sigma, tau)
 }
 
 exgaussian_cpp <- function(x, mu, sigma, tau) {
-    .Call('_exgaussian_exgaussian_cpp', PACKAGE = 'exgaussian', x, mu, sigma, tau)
+    .Call('_exgaussian_cpp', PACKAGE = 'exgaussian', x, mu, sigma, tau)
 }
 
