@@ -10,19 +10,41 @@ Rcpp::Rostream<true>&  Rcpp::Rcout = Rcpp::Rcpp_cout_get();
 Rcpp::Rostream<false>& Rcpp::Rcerr = Rcpp::Rcpp_cerr_get();
 #endif
 
-// rcpp_exgaussian
-List rcpp_exgaussian();
-RcppExport SEXP _exgaussian_rcpp() {
+// d_exgaussian
+// Define the ex-Gaussian density function double d_exgaussian(double x, double mu, double sigma, double tau);
+RcppExport SEXP _exgaussian_d_exgaussian(SEXP xSEXP, SEXP muSEXP, SEXP sigmaSEXP, SEXP tauSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    rcpp_result_gen = Rcpp::wrap(rcpp_exgaussian());
+    Rcpp::traits::input_parameter< double >::type x(xSEXP);
+    Rcpp::traits::input_parameter< double >::type mu(muSEXP);
+    Rcpp::traits::input_parameter< double >::type sigma(sigmaSEXP);
+    Rcpp::traits::input_parameter< double >::type tau(tauSEXP);
+    rcpp_result_gen = Rcpp::wrap(d_exgaussian(x, mu, sigma, tau));
+    return rcpp_result_gen;
+END_RCPP
+}
+// exgaussian_cpp
+NumericVector exgaussian_cpp(NumericVector x, double mu, double sigma, double tau);
+RcppExport SEXP _exgaussian_exgaussian_cpp(SEXP xSEXP, SEXP muSEXP, SEXP sigmaSEXP, SEXP tauSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< NumericVector >::type x(xSEXP);
+    Rcpp::traits::input_parameter< double >::type mu(muSEXP);
+    Rcpp::traits::input_parameter< double >::type sigma(sigmaSEXP);
+    Rcpp::traits::input_parameter< double >::type tau(tauSEXP);
+    rcpp_result_gen = Rcpp::wrap(exgaussian_cpp(x, mu, sigma, tau));
     return rcpp_result_gen;
 END_RCPP
 }
 
+RcppExport SEXP exgaussian_cpp(SEXP, SEXP, SEXP, SEXP);
+
 static const R_CallMethodDef CallEntries[] = {
-    {"_exgaussian_rcpp", (DL_FUNC) &_exgaussian_rcpp, 0},
+    {"_exgaussian_d_exgaussian", (DL_FUNC) &_exgaussian_d_exgaussian, 4},
+    {"_exgaussian_exgaussian_cpp", (DL_FUNC) &_exgaussian_exgaussian_cpp, 4},
+    {"exgaussian_cpp", (DL_FUNC) &exgaussian_cpp, 4},
     {NULL, NULL, 0}
 };
 
