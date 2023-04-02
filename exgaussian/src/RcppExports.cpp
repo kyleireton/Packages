@@ -13,7 +13,7 @@ double d_exgaussian(NumericVector x, NumericVector mu, NumericVector sigma, Nume
 
 // Define the Rcpp wrapper function
 // [[Rcpp::export]]
-NumericVector exgaussian_cpp(NumericVector x, NumericVectore mu, NumericVector sigma, NumericVector tau) {
+NumericVector exgaussian_cpp(NumericVector x, NumericVector mu, NumericVector sigma, NumericVector tau) {
   int n = x.length();
   NumericVector y(n);
   for (int i = 0; i < n; i++) {
